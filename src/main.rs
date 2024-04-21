@@ -17,7 +17,7 @@ use serde::{Deserialize, Serialize};
 struct DbConn(PgConnection);
 
 #[derive(Serialize, Deserialize, Queryable, Insertable)]
-#[table_name = "tasks"]
+#[diesel(table_name = tasks)]
 struct Task {
     id: i32,
     title: String,
@@ -25,7 +25,7 @@ struct Task {
     completed: bool,
 }
 
-#[post("/tasks", format = "json", data = "<task>")]
+#[post("/task", format = "json", data = "<task>")]
 async fn create_task(task: Json<Task>, db: DbConn) -> Result<Json<Task>, String> {
     db.run(move |c| {
         diesel::insert_into(tasks::table)
