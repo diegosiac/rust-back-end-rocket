@@ -1,0 +1,2 @@
+[default.databases]
+postgres_database = { url = "postgres://root:root@localhost/todo" }
